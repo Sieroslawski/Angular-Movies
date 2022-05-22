@@ -56,7 +56,7 @@ export class HomePageComponent {
     }
 
     getMovies() {
-        let BASE_URL = 'http://api.themoviedb.org/3/discover/movie?api_key='
+        let BASE_URL = 'https://api.themoviedb.org/3/discover/movie?api_key='
             + this.API_KEY
             + `&primary_release_date.gte=${this.getFormattedDate(this.getDateRange())}`
             + `&primary_release_date.lte=${this.getFormattedDate(new Date())}`
@@ -65,12 +65,8 @@ export class HomePageComponent {
             .subscribe({
                 next: (data) => {
                     let page = data.page;
-                    this.totalPages = data.total_pages;
-                    console.log("Page number: " + page
-                        + " Total Pages: " + this.totalPages);
-                    this._movieArray = data.results;
-                    // console.log(this._movieArray);
-                    // console.log(BASE_URL)
+                    this.totalPages = data.total_pages;                   
+                    this._movieArray = data.results;                  
                 },
                 error: (er) => {
                     alert(er);
@@ -83,8 +79,7 @@ export class HomePageComponent {
         this._http.get<any>(this.GENRE_URL)
             .subscribe({
                 next: (data) => {
-                    this._genreArray = data.genres;
-                    console.log(JSON.stringify(this._genreArray));
+                    this._genreArray = data.genres;                   
                 },
                 error: (er) => {
                     alert(er);
